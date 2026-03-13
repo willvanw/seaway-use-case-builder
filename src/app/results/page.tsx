@@ -16,30 +16,39 @@ export default function ResultsPage() {
 
   // Extract profile data from answers
   const extractProfileData = (answers: any[]) => {
-    let industry = 'Your Organization'
-    let maturityLevel = 'Medium'
-    let primaryObjective = 'AI Optimization'
+    let businessLine = 'THE·TEAM'
+    let dataMaturity = 'Developing'
+    let strategicPriority = 'AI Optimization'
 
     answers.forEach((answer) => {
-      // Look for industry
-      if (answer.tags?.includes('financial-services')) industry = 'Financial Services'
-      else if (answer.tags?.includes('healthcare')) industry = 'Healthcare'
-      else if (answer.tags?.includes('manufacturing')) industry = 'Manufacturing'
-      else if (answer.tags?.includes('technology')) industry = 'Technology'
-      else if (answer.tags?.includes('retail')) industry = 'Retail'
+      // Look for business line
+      if (answer.tags?.includes('creators-influencers')) businessLine = 'Creators & Influencers'
+      else if (answer.tags?.includes('business-development')) businessLine = 'Business Development'
+      else if (answer.tags?.includes('finance-operations')) businessLine = 'Finance & Operations'
+      else if (answer.tags?.includes('performance-marketing')) businessLine = 'Performance Marketing'
+      else if (answer.tags?.includes('experiential-marketing')) businessLine = 'Experiential Marketing'
+      else if (answer.tags?.includes('creative')) businessLine = 'Creative'
+      else if (answer.tags?.includes('measurement-insights')) businessLine = 'Measurement & Insights'
+      else if (answer.tags?.includes('live-event-production')) businessLine = 'Live Event Production'
+      else if (answer.tags?.includes('people-talent')) businessLine = 'People & Talent'
+      else if (answer.tags?.includes('music-talent-rep')) businessLine = 'Music & Talent Rep'
 
-      // Look for maturity level
-      if (answer.tags?.includes('low-tech-maturity')) maturityLevel = 'Early Stage'
-      else if (answer.tags?.includes('mid-tech-maturity')) maturityLevel = 'Developing'
-      else if (answer.tags?.includes('high-tech-maturity')) maturityLevel = 'Advanced'
+      // Look for data maturity
+      if (answer.tags?.includes('data-scattered')) dataMaturity = 'Scattered'
+      else if (answer.tags?.includes('data-centralized')) dataMaturity = 'Centralized'
+      else if (answer.tags?.includes('data-structured')) dataMaturity = 'Structured'
+      else if (answer.tags?.includes('data-proprietary')) dataMaturity = 'Proprietary Asset'
 
-      // Look for primary objective
-      if (answer.tags?.includes('cost-reduction')) primaryObjective = 'Cost Reduction'
-      else if (answer.tags?.includes('revenue-growth')) primaryObjective = 'Revenue Growth'
-      else if (answer.tags?.includes('risk-mitigation')) primaryObjective = 'Risk Management'
+      // Look for strategic priority
+      if (answer.tags?.includes('reduce-costs')) strategicPriority = 'Reduce Costs'
+      else if (answer.tags?.includes('win-pitches')) strategicPriority = 'Win More Pitches'
+      else if (answer.tags?.includes('faster-delivery')) strategicPriority = 'Faster Delivery'
+      else if (answer.tags?.includes('productized-service')) strategicPriority = 'Productized Service'
+      else if (answer.tags?.includes('talent-intelligence')) strategicPriority = 'Talent Intelligence'
+      else if (answer.tags?.includes('measurement-edge')) strategicPriority = 'Measurement Edge'
     })
 
-    return { industry, maturityLevel, primaryObjective }
+    return { businessLine, dataMaturity, strategicPriority }
   }
 
   useEffect(() => {
@@ -122,27 +131,27 @@ export default function ResultsPage() {
               Your <span className="gradient-text">AI Opportunity Map</span>
             </h1>
             <p className="text-xl text-gray-400 mb-8 max-w-2xl">
-              Based on your organizational profile, here are your 5 highest-impact AI use cases
-              tailored to create immediate business value.
+              Based on your THE·TEAM profile, here are your 5 highest-impact AI use cases
+              tailored to your business line and strategic priorities.
             </p>
 
             {/* Profile Summary Bar */}
             <div className="glass-card rounded-2xl p-6 border border-white/10 flex flex-wrap gap-4 md:gap-8">
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Industry</p>
-                <p className="text-lg font-semibold text-white">{profile.industry}</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Business Line</p>
+                <p className="text-lg font-semibold text-white">{profile.businessLine}</p>
               </div>
               <div className="hidden md:block w-px bg-white/10"></div>
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">AI Maturity</p>
-                <p className="text-lg font-semibold text-white">{profile.maturityLevel}</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">Data Maturity</p>
+                <p className="text-lg font-semibold text-white">{profile.dataMaturity}</p>
               </div>
               <div className="hidden md:block w-px bg-white/10"></div>
               <div>
                 <p className="text-xs text-gray-500 uppercase tracking-wide mb-2">
-                  Primary Objective
+                  Strategic Priority
                 </p>
-                <p className="text-lg font-semibold text-white">{profile.primaryObjective}</p>
+                <p className="text-lg font-semibold text-white">{profile.strategicPriority}</p>
               </div>
             </div>
           </div>
@@ -342,8 +351,8 @@ function RecommendationCard({
                     <span className="text-xl">🎯</span> Why It Matters
                   </h4>
                   <p className="text-gray-300 leading-relaxed">
-                    This use case aligns with your current capabilities and organizational
-                    maturity. Implementation will deliver measurable ROI within 3-6 months.
+                    This use case aligns with your business line&apos;s workflows and data maturity.
+                    Implementation targets measurable impact on your core deliverables.
                   </p>
                 </div>
               </div>

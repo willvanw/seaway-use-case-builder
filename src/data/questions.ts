@@ -2,12 +2,12 @@ export interface QuestionOption {
   id: string;
   label: string;
   description: string;
-  icon: string; // emoji
-  tags: string[]; // maps to use case tags for scoring
+  icon: string;
+  tags: string[];
   weights: {
-    valuePreference: number;    // -2 to 2: how much they care about value
-    riskTolerance: number;      // -2 to 2: how much risk they'll accept
-    complexityTolerance: number; // -2 to 2: how much complexity they'll handle
+    valuePreference?: number;
+    riskTolerance?: number;
+    complexityTolerance?: number;
   };
 }
 
@@ -21,480 +21,536 @@ export interface Question {
 export const questions: Question[] = [
   {
     id: 1,
-    question: "What industry does your organization primarily operate in?",
-    subtitle: "Understanding your industry context helps us identify relevant use cases",
+    question: "Which THE·TEAM business line are you exploring AI opportunities for?",
+    subtitle: "Select the team closest to where you see the biggest opportunity",
     options: [
       {
-        id: "ind-financial",
-        label: "Financial Services",
-        description: "Banking, insurance, investment management, fintech",
-        icon: "🏦",
-        tags: ["financial-services", "high-regulation", "data-rich"],
-        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: 1 },
+        id: "creators-inf",
+        label: "Creators & Influencers",
+        description: "Creator campaigns, influencer partnerships, social-first talent management",
+        icon: "🎬",
+        tags: ["creators-influencers", "talent-sourcing", "content-production"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 0 }
       },
       {
-        id: "ind-healthcare",
-        label: "Healthcare & Life Sciences",
-        description: "Hospitals, pharma, biotech, medical devices",
-        icon: "🏥",
-        tags: ["healthcare", "high-regulation", "data-rich"],
-        weights: { valuePreference: 1, riskTolerance: -2, complexityTolerance: 1 },
+        id: "biz-dev",
+        label: "Business Development",
+        description: "New business pitches, client acquisition, partnership growth",
+        icon: "🤝",
+        tags: ["business-development", "win-pitches", "brand-partnerships"],
+        weights: { valuePreference: 2, riskTolerance: 1, complexityTolerance: 0 }
       },
       {
-        id: "ind-manufacturing",
-        label: "Manufacturing & Industrial",
-        description: "Discrete manufacturing, process industries, automotive, industrial",
-        icon: "🏭",
-        tags: ["manufacturing", "operations-heavy", "data-rich"],
-        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 1 },
+        id: "fin-ops",
+        label: "Finance & Operations",
+        description: "Agency P&L, project costing, resource allocation, procurement",
+        icon: "📊",
+        tags: ["finance-operations", "reduce-costs", "internal-ops"],
+        weights: { valuePreference: 2, riskTolerance: -1, complexityTolerance: 0 }
       },
       {
-        id: "ind-technology",
-        label: "Technology & Software",
-        description: "SaaS, software, hardware, semiconductors, cloud",
-        icon: "💻",
-        tags: ["technology", "high-tech-maturity", "data-rich"],
-        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 2 },
+        id: "perf-marketing",
+        label: "Performance Marketing",
+        description: "Paid media, programmatic, social ads, conversion optimization",
+        icon: "📈",
+        tags: ["performance-marketing", "media-buying", "campaign-optimization"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
       {
-        id: "ind-retail",
-        label: "Retail & Consumer",
-        description: "Retail, e-commerce, consumer goods, CPG, hospitality",
-        icon: "🛍️",
-        tags: ["retail", "customer-facing", "data-rich"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 0 },
+        id: "experiential",
+        label: "Experiential Marketing",
+        description: "Brand activations, pop-ups, immersive experiences, fan engagement",
+        icon: "🎪",
+        tags: ["experiential-marketing", "event-logistics", "brand-partnerships"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "ind-professional",
-        label: "Professional Services",
-        description: "Consulting, accounting, legal, architecture, engineering",
-        icon: "👔",
-        tags: ["professional-services", "knowledge-intensive"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 1 },
+        id: "creative-team",
+        label: "Creative",
+        description: "Campaign creative, brand strategy, design, video production",
+        icon: "🎨",
+        tags: ["creative", "content-production", "creative-volume"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
       {
-        id: "ind-energy",
-        label: "Energy & Utilities",
-        description: "Oil & gas, electric utilities, renewable energy, mining",
-        icon: "⚡",
-        tags: ["energy", "operations-heavy", "data-rich"],
-        weights: { valuePreference: 2, riskTolerance: -1, complexityTolerance: 1 },
+        id: "measurement",
+        label: "Measurement & Insights",
+        description: "Campaign analytics, audience research, brand tracking, attribution",
+        icon: "🔬",
+        tags: ["measurement-insights", "client-reporting", "cross-platform-measurement"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 1 }
       },
       {
-        id: "ind-media",
-        label: "Media & Telecommunications",
-        description: "Telecom, broadcasting, streaming, entertainment, publishing",
-        icon: "📡",
-        tags: ["media-telecom", "customer-facing", "data-rich"],
-        weights: { valuePreference: 0, riskTolerance: 1, complexityTolerance: 1 },
+        id: "live-events",
+        label: "Live Event Production",
+        description: "Concert tours, sports events, festival production, broadcast",
+        icon: "🎤",
+        tags: ["live-event-production", "event-logistics", "vendor-coordination"],
+        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: 0 }
       },
-    ],
+      {
+        id: "people-talent-hr",
+        label: "People & Talent",
+        description: "Agency recruiting, culture, learning & development, retention",
+        icon: "👥",
+        tags: ["people-talent", "internal-ops", "reduce-costs"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: -1 }
+      },
+      {
+        id: "music-rep",
+        label: "Music & Talent Representation",
+        description: "Artist management, booking, licensing, rights management",
+        icon: "🎵",
+        tags: ["music-talent-rep", "deal-management", "talent-sourcing"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
+      }
+    ]
   },
   {
     id: 2,
-    question: "Which function are you primarily looking to transform?",
-    subtitle: "Focus on the business area where you see the most opportunity",
+    question: "What type of work does this team deliver most?",
+    subtitle: "This helps us match AI solutions to your actual workflow",
     options: [
       {
-        id: "func-ops",
-        label: "Operations & Supply Chain",
-        description: "Production, logistics, procurement, inventory management",
-        icon: "🚚",
-        tags: ["operations", "cost-reduction", "internal-ops"],
-        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 0 },
+        id: "del-campaign",
+        label: "Campaign strategy & execution",
+        description: "End-to-end campaign planning, brief-to-launch delivery",
+        icon: "🎯",
+        tags: ["campaign-strategy", "client-delivery", "faster-delivery"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "func-finance",
-        label: "Finance & Risk",
-        description: "Financial planning, accounting, risk management, compliance",
+        id: "del-talent",
+        label: "Talent sourcing & relationship management",
+        description: "Finding, vetting, and managing creator/athlete/artist relationships",
+        icon: "⭐",
+        tags: ["talent-sourcing", "talent-intelligence", "creators-influencers"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
+      },
+      {
+        id: "del-reporting",
+        label: "Client reporting & analytics",
+        description: "Performance dashboards, post-campaign analysis, audience insights",
         icon: "📊",
-        tags: ["finance-risk", "cost-reduction", "risk-mitigation"],
-        weights: { valuePreference: 2, riskTolerance: -1, complexityTolerance: 1 },
+        tags: ["client-reporting", "measurement-insights", "speed-insights"],
+        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: 1 }
       },
       {
-        id: "func-customer",
-        label: "Customer Experience",
-        description: "Sales support, customer service, marketing, insights",
-        icon: "😊",
-        tags: ["customer-experience", "revenue-growth", "customer-facing"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
+        id: "del-content",
+        label: "Content creation & production",
+        description: "Video, social, design, copywriting at scale",
+        icon: "🎬",
+        tags: ["content-production", "creative", "creative-scale"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
       {
-        id: "func-hr",
-        label: "HR & Talent",
-        description: "Recruitment, employee development, workforce planning, retention",
-        icon: "👥",
-        tags: ["hr-talent", "productivity", "internal-ops"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
+        id: "del-events",
+        label: "Event planning & logistics",
+        description: "Venue sourcing, vendor management, run-of-show, production timelines",
+        icon: "📋",
+        tags: ["event-logistics", "live-event-production", "vendor-coordination"],
+        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: 0 }
       },
       {
-        id: "func-sales",
-        label: "Sales & Revenue",
-        description: "Deal management, pipeline, pricing, expansion",
+        id: "del-deals",
+        label: "Contract negotiation & deal management",
+        description: "Talent contracts, sponsorship agreements, rights and licensing",
+        icon: "📝",
+        tags: ["deal-management", "contract-workflow", "music-talent-rep"],
+        weights: { valuePreference: 2, riskTolerance: -1, complexityTolerance: 1 }
+      },
+      {
+        id: "del-media",
+        label: "Media buying & optimization",
+        description: "Programmatic, social, search, connected TV buying and optimization",
         icon: "💰",
-        tags: ["sales-revenue", "revenue-growth", "customer-facing"],
-        weights: { valuePreference: 2, riskTolerance: 1, complexityTolerance: 0 },
+        tags: ["media-buying", "performance-marketing", "campaign-optimization"],
+        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 1 }
       },
       {
-        id: "func-it",
-        label: "IT & Engineering",
-        description: "Infrastructure, development, security, DevOps",
-        icon: "⚙️",
-        tags: ["it-engineering", "productivity", "internal-ops"],
-        weights: { valuePreference: 0, riskTolerance: 1, complexityTolerance: 2 },
-      },
-      {
-        id: "func-legal",
-        label: "Legal & Compliance",
-        description: "Contract management, regulatory compliance, legal ops",
-        icon: "⚖️",
-        tags: ["legal-compliance", "risk-mitigation", "internal-ops"],
-        weights: { valuePreference: 1, riskTolerance: -2, complexityTolerance: 1 },
-      },
-      {
-        id: "func-product",
-        label: "Product & Innovation",
-        description: "Product development, R&D, market analysis, innovation",
-        icon: "🚀",
-        tags: ["product-innovation", "revenue-growth", "differentiation"],
-        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 2 },
-      },
-    ],
+        id: "del-partnerships",
+        label: "Brand partnerships & sponsorship activation",
+        description: "Connecting brands with sports, music, and entertainment properties",
+        icon: "🏟️",
+        tags: ["brand-partnerships", "business-development", "experiential-marketing"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
+      }
+    ]
   },
   {
     id: 3,
-    question: "How would you describe your organization's current AI/data maturity?",
-    subtitle: "This helps us recommend solutions that fit your technical capability",
+    question: "What's the single biggest bottleneck slowing your team down?",
+    subtitle: "Be honest — this is where AI can make the fastest difference",
     options: [
       {
-        id: "mat-early",
-        label: "Early Explorer",
-        description: "Basic analytics and reporting, minimal AI initiatives",
-        icon: "🌱",
-        tags: ["low-tech-maturity", "quick-win", "buy-saas"],
-        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: -2 },
+        id: "bot-reporting",
+        label: "Manual reporting and data pulls eating billable hours",
+        description: "Hours spent pulling data from platforms, formatting decks, updating dashboards",
+        icon: "⏰",
+        tags: ["manual-reporting", "client-reporting", "speed-insights"],
+        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: -1 }
       },
       {
-        id: "mat-building",
-        label: "Building Foundations",
-        description: "Data platform in place, developing data governance, early ML experiments",
-        icon: "🏗️",
-        tags: ["mid-tech-maturity", "strategic-investment"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
+        id: "bot-talent",
+        label: "Talent/influencer discovery and vetting taking too long",
+        description: "Searching across platforms, checking brand safety, validating audience data",
+        icon: "🔍",
+        tags: ["talent-discovery", "talent-sourcing", "creators-influencers"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "mat-scaling",
-        label: "Scaling Up",
-        description: "Some ML models in production, developing data science capability",
-        icon: "📈",
-        tags: ["mid-tech-maturity", "strategic-investment", "build-custom"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
+        id: "bot-creative",
+        label: "Creative asset production can't keep pace with demand",
+        description: "More formats, more platforms, more variants — same team size",
+        icon: "🎨",
+        tags: ["creative-volume", "content-production", "creative-scale"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
       {
-        id: "mat-native",
-        label: "AI-Native",
-        description: "AI embedded across operations, mature MLOps, continuous innovation",
-        icon: "🤖",
-        tags: ["high-tech-maturity", "differentiation", "build-custom"],
-        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 2 },
+        id: "bot-campaign",
+        label: "Campaign performance optimization is too reactive",
+        description: "Only seeing results after the fact, not adjusting in real time",
+        icon: "📉",
+        tags: ["campaign-optimization", "performance-marketing", "roi-attribution"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
-    ],
+      {
+        id: "bot-vendor",
+        label: "Event logistics coordination across vendors is chaotic",
+        description: "Multiple vendors, shifting timelines, no single source of truth",
+        icon: "🌀",
+        tags: ["vendor-coordination", "event-logistics", "live-event-production"],
+        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: 0 }
+      },
+      {
+        id: "bot-contracts",
+        label: "Contract and deal workflow is slow and error-prone",
+        description: "Drafting, redlining, approvals dragging across weeks",
+        icon: "📑",
+        tags: ["contract-workflow", "deal-management", "music-talent-rep"],
+        weights: { valuePreference: 2, riskTolerance: -1, complexityTolerance: 0 }
+      },
+      {
+        id: "bot-approvals",
+        label: "Client communication and approvals create delays",
+        description: "Waiting on feedback, version confusion, misaligned expectations",
+        icon: "💬",
+        tags: ["client-approvals", "faster-delivery", "client-delivery"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: -1 }
+      },
+      {
+        id: "bot-knowledge",
+        label: "Knowledge trapped in individual people not systems",
+        description: "Key insights, relationships, and processes live in people's heads",
+        icon: "🧠",
+        tags: ["knowledge-silos", "internal-ops", "agency-wide"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
+      }
+    ]
   },
   {
     id: 4,
-    question: "What is the biggest operational challenge you're facing?",
-    subtitle: "Identifying your primary pain point helps us find solutions faster",
+    question: "How would you describe the data your team works with today?",
+    subtitle: "AI is only as good as the data it can access",
     options: [
       {
-        id: "pain-costs",
-        label: "Rising costs eating margins",
-        description: "Pressure to reduce operational expenses while maintaining quality",
-        icon: "📉",
-        tags: ["cost-reduction", "valuePreference"],
-        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 0 },
-      },
-      {
-        id: "pain-customer",
-        label: "Customer experience falling behind",
-        description: "Losing competitive ground on service quality and personalization",
-        icon: "😔",
-        tags: ["customer-experience", "revenue-growth", "differentiation"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
-      },
-      {
-        id: "pain-compliance",
-        label: "Compliance/regulatory burden growing",
-        description: "Increasing regulatory requirements and audit complexity",
-        icon: "📋",
-        tags: ["risk-mitigation", "legal-compliance"],
-        weights: { valuePreference: 1, riskTolerance: -2, complexityTolerance: 1 },
-      },
-      {
-        id: "pain-talent",
-        label: "Talent shortage / workforce inefficiency",
-        description: "Difficulty attracting/retaining talent, low productivity",
-        icon: "👨‍💼",
-        tags: ["productivity", "hr-talent"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
-      },
-      {
-        id: "pain-revenue",
-        label: "Revenue growth stalling",
-        description: "Difficulty entering new markets or capturing growth opportunities",
-        icon: "📊",
-        tags: ["revenue-growth", "customer-facing"],
-        weights: { valuePreference: 2, riskTolerance: 1, complexityTolerance: 1 },
-      },
-      {
-        id: "pain-manual",
-        label: "Manual processes slowing everything down",
-        description: "Legacy systems and manual work creating bottlenecks",
-        icon: "🐢",
-        tags: ["productivity", "cost-reduction"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
-      },
-    ],
-  },
-  {
-    id: 5,
-    question: "What's your investment appetite for AI initiatives?",
-    subtitle: "Budget and timeline shape the approach we recommend",
-    options: [
-      {
-        id: "budget-quick",
-        label: "Quick wins under $500K",
-        description: "Prove value quickly with limited investment, 3-6 month timelines",
-        icon: "⚡",
-        tags: ["quick-win", "buy-saas"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: -1 },
-      },
-      {
-        id: "budget-strategic",
-        label: "Strategic bets $500K-$2M",
-        description: "Medium-term investments with meaningful impact, 6-12 month timelines",
-        icon: "🎯",
-        tags: ["strategic-investment"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 0 },
-      },
-      {
-        id: "budget-transform",
-        label: "Transformational investments $2M-$10M",
-        description: "Major initiatives reshaping processes, 12-24 month timelines",
-        icon: "🌟",
-        tags: ["strategic-investment", "differentiation"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
-      },
-      {
-        id: "budget-platform",
-        label: "Platform-level commitments $10M+",
-        description: "Enterprise-wide AI infrastructure, 24+ month timelines",
-        icon: "🏛️",
-        tags: ["enterprise-wide", "differentiation"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 2 },
-      },
-    ],
-  },
-  {
-    id: 6,
-    question: "How does your organization approach risk in technology adoption?",
-    subtitle: "Understanding your risk appetite guides implementation strategy",
-    options: [
-      {
-        id: "risk-conservative",
-        label: "Conservative",
-        description: "Prefer proven, battle-tested solutions with minimal risk",
-        icon: "🛡️",
-        tags: ["low-risk-tolerance", "buy-saas"],
-        weights: { valuePreference: 1, riskTolerance: -2, complexityTolerance: -1 },
-      },
-      {
-        id: "risk-moderate",
-        label: "Moderate",
-        description: "Balance between innovation and risk, evidence-based approach",
-        icon: "⚖️",
-        tags: ["mid-tech-maturity"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
-      },
-      {
-        id: "risk-progressive",
-        label: "Progressive",
-        description: "Comfortable with calculated risks, embrace emerging technologies",
-        icon: "🚀",
-        tags: ["high-risk-tolerance", "build-custom"],
-        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 1 },
-      },
-      {
-        id: "risk-aggressive",
-        label: "Aggressive",
-        description: "First-mover advantage, willing to accept higher risk for differentiation",
-        icon: "🔥",
-        tags: ["high-risk-tolerance", "differentiation"],
-        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 2 },
-      },
-    ],
-  },
-  {
-    id: 7,
-    question: "How would you describe your organization's data assets?",
-    subtitle: "Data quality and accessibility are critical for AI success",
-    options: [
-      {
-        id: "data-fragmented",
-        label: "Fragmented across silos",
-        description: "Data scattered across systems with inconsistent formats and quality",
+        id: "data-scattered",
+        label: "Scattered across platforms with no single source of truth",
+        description: "Performance data in Meta, Google, TikTok — audience data somewhere else entirely",
         icon: "🔀",
-        tags: ["data-poor", "low-tech-maturity"],
-        weights: { valuePreference: 0, riskTolerance: 0, complexityTolerance: -1 },
+        tags: ["data-scattered", "manual-reporting"],
+        weights: { valuePreference: 0, riskTolerance: 0, complexityTolerance: -1 }
       },
       {
-        id: "data-centralized",
-        label: "Centralized but underutilized",
-        description: "Data warehouse/lake in place but limited analytical capability",
+        id: "data-central",
+        label: "Centralized in a few tools but underutilized",
+        description: "We have dashboards but rarely go deeper than surface-level reporting",
         icon: "📦",
-        tags: ["mid-tech-maturity", "strategic-investment"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
+        tags: ["data-centralized", "speed-insights"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "data-governed",
-        label: "Well-governed and accessible",
-        description: "Clean, integrated data with strong governance and quality standards",
+        id: "data-structured",
+        label: "Well-structured with dashboards and regular reporting",
+        description: "Clean data pipelines, regular cadence of insights, team uses data daily",
         icon: "✅",
-        tags: ["data-rich", "mid-tech-maturity"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
+        tags: ["data-structured", "measurement-insights", "client-reporting"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
       {
         id: "data-proprietary",
-        label: "Rich proprietary datasets ready for AI",
-        description: "High-quality data assets with unique competitive value",
+        label: "Rich proprietary datasets (audience data, performance history, talent databases)",
+        description: "Years of campaign data, proprietary talent/audience graphs, benchmarks",
         icon: "💎",
-        tags: ["data-rich", "high-tech-maturity", "differentiation"],
-        weights: { valuePreference: 2, riskTolerance: 1, complexityTolerance: 2 },
+        tags: ["data-proprietary", "talent-intelligence", "measurement-edge"],
+        weights: { valuePreference: 2, riskTolerance: 1, complexityTolerance: 2 }
+      }
+    ]
+  },
+  {
+    id: 5,
+    question: "Where are client expectations outpacing your team's current capabilities?",
+    subtitle: "Identifying the gap helps us find solutions that win and retain clients",
+    options: [
+      {
+        id: "exp-speed",
+        label: "Speed of insight delivery and real-time reporting",
+        description: "Clients want live dashboards and same-day analysis, not week-old decks",
+        icon: "⚡",
+        tags: ["speed-insights", "client-reporting", "faster-delivery"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
-    ],
+      {
+        id: "exp-personalization",
+        label: "Personalization and audience targeting precision",
+        description: "One-size campaigns don't cut it anymore — need micro-segmentation",
+        icon: "🎯",
+        tags: ["personalization", "performance-marketing", "campaign-strategy"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
+      },
+      {
+        id: "exp-creative",
+        label: "Creative volume and variation at scale",
+        description: "Clients need 50 ad variants not 5, across every platform and format",
+        icon: "🎨",
+        tags: ["creative-scale", "content-production", "creative"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
+      },
+      {
+        id: "exp-roi",
+        label: "Proving ROI and attribution across channels",
+        description: "CFOs want proof, and last-click attribution doesn't satisfy anyone",
+        icon: "📈",
+        tags: ["roi-attribution", "measurement-insights", "cross-platform-measurement"],
+        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 1 }
+      },
+      {
+        id: "exp-trends",
+        label: "Predicting trends and cultural moments before they peak",
+        description: "Clients want to be first, not fast followers — need cultural radar",
+        icon: "🔮",
+        tags: ["trend-prediction", "creators-influencers", "creative"],
+        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 1 }
+      },
+      {
+        id: "exp-measurement",
+        label: "Cross-platform measurement and unified analytics",
+        description: "Data from 12 platforms needs to tell one coherent story",
+        icon: "🔗",
+        tags: ["cross-platform-measurement", "measurement-insights", "client-reporting"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 1 }
+      }
+    ]
+  },
+  {
+    id: 6,
+    question: "How does your team feel about introducing AI into their workflows?",
+    subtitle: "Adoption is as much about people as technology",
+    options: [
+      {
+        id: "ai-cautious",
+        label: "Cautious — need proven use cases with minimal disruption",
+        description: "Show me it works somewhere else first before we change how we work",
+        icon: "🛡️",
+        tags: ["ai-cautious", "buy-saas", "timeline-rapid"],
+        weights: { valuePreference: 1, riskTolerance: -2, complexityTolerance: -1 }
+      },
+      {
+        id: "ai-open",
+        label: "Open — willing to pilot if there's a clear business case",
+        description: "We'll try it if the ROI story is credible and the team is supported",
+        icon: "👐",
+        tags: ["ai-open", "timeline-pilot"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
+      },
+      {
+        id: "ai-eager",
+        label: "Eager — already experimenting and want to scale",
+        description: "Some of our people are already using AI tools — we need to formalize this",
+        icon: "🚀",
+        tags: ["ai-eager", "build-opensource", "timeline-strategic"],
+        weights: { valuePreference: 0, riskTolerance: 1, complexityTolerance: 1 }
+      },
+      {
+        id: "ai-aggressive",
+        label: "Aggressive — want to lead the industry in AI-powered delivery",
+        description: "We want AI to be THE reason clients choose THE·TEAM",
+        icon: "🔥",
+        tags: ["ai-aggressive", "build-proprietary", "productized-service"],
+        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 2 }
+      }
+    ]
+  },
+  {
+    id: 7,
+    question: "What's a realistic timeline for delivering impact from an AI initiative?",
+    subtitle: "Speed vs. depth — both are valid, but they shape the solution",
+    options: [
+      {
+        id: "time-rapid",
+        label: "Under 4 weeks — quick win to prove the concept",
+        description: "Need to show value fast to build internal buy-in and momentum",
+        icon: "⚡",
+        tags: ["timeline-rapid", "buy-saas", "internal-ops"],
+        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: -2 }
+      },
+      {
+        id: "time-pilot",
+        label: "1–3 months — focused pilot with a specific team",
+        description: "Enough time to integrate into a real workflow and measure results",
+        icon: "🎯",
+        tags: ["timeline-pilot", "customize-platform"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
+      },
+      {
+        id: "time-strategic",
+        label: "3–6 months — strategic build integrated into live workflows",
+        description: "Proper build with training, integration, and change management",
+        icon: "🏗️",
+        tags: ["timeline-strategic", "build-opensource", "client-delivery"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
+      },
+      {
+        id: "time-transform",
+        label: "6–12 months — transformational capability that changes how we operate",
+        description: "Building a genuine competitive advantage that reshapes the business line",
+        icon: "🌟",
+        tags: ["timeline-transformational", "build-proprietary", "agency-wide"],
+        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 2 }
+      }
+    ]
   },
   {
     id: 8,
-    question: "What's the primary strategic objective for AI?",
-    subtitle: "Different objectives require different technology approaches",
+    question: "What's your preferred approach to technology?",
+    subtitle: "There's no wrong answer — each has tradeoffs in speed, cost, and control",
     options: [
       {
-        id: "strat-costs",
-        label: "Cut operational costs dramatically",
-        description: "Automation and efficiency driving margin improvement",
-        icon: "✂️",
-        tags: ["cost-reduction", "operations"],
-        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 0 },
+        id: "tech-saas",
+        label: "Off-the-shelf SaaS tools configured for our needs",
+        description: "Fast to deploy, vendor-supported, limited customization",
+        icon: "📦",
+        tags: ["buy-saas", "timeline-rapid", "ai-cautious"],
+        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: -1 }
       },
       {
-        id: "strat-revenue",
-        label: "Build new revenue streams",
-        description: "AI-powered products, services, and business models",
-        icon: "💵",
-        tags: ["revenue-growth", "product-innovation"],
-        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 1 },
+        id: "tech-customize",
+        label: "Customize existing platforms with agency-specific workflows",
+        description: "Take a proven tool and make it work the way we work",
+        icon: "🔧",
+        tags: ["customize-platform", "timeline-pilot"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "strat-risk",
-        label: "Reduce risk and improve compliance",
-        description: "Strengthen risk management and regulatory controls",
-        icon: "🔐",
-        tags: ["risk-mitigation", "legal-compliance"],
-        weights: { valuePreference: 1, riskTolerance: -2, complexityTolerance: 1 },
+        id: "tech-opensource",
+        label: "Build proprietary tools on open-source foundations",
+        description: "Maximum flexibility, own the roadmap, invest in engineering",
+        icon: "🌳",
+        tags: ["build-opensource", "timeline-strategic"],
+        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 }
       },
       {
-        id: "strat-diff",
-        label: "Create competitive differentiation",
-        description: "Build capabilities competitors can't easily replicate",
-        icon: "🏆",
-        tags: ["differentiation", "revenue-growth"],
-        weights: { valuePreference: 0, riskTolerance: 2, complexityTolerance: 1 },
-      },
-      {
-        id: "strat-productivity",
-        label: "Improve employee productivity",
-        description: "Empower workforce with AI tools and augmentation",
-        icon: "⚡",
-        tags: ["productivity", "hr-talent"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
-      },
-    ],
+        id: "tech-custom",
+        label: "Full custom development — own the IP entirely",
+        description: "Build something nobody else has, potential to productize",
+        icon: "🏭",
+        tags: ["build-proprietary", "productized-service", "timeline-transformational"],
+        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 2 }
+      }
+    ]
   },
   {
     id: 9,
-    question: "What's your preferred approach to technology implementation?",
-    subtitle: "Build vs buy decisions impact speed, cost, and flexibility",
+    question: "What would create the most value for your business line in the next 12 months?",
+    subtitle: "Pick the one that would change the game most",
     options: [
       {
-        id: "impl-saas",
-        label: "Buy off-the-shelf SaaS",
-        description: "Packaged solutions, low customization, fast deployment",
-        icon: "📦",
-        tags: ["quick-win", "buy-saas", "low-tech-maturity"],
-        weights: { valuePreference: 1, riskTolerance: -1, complexityTolerance: -1 },
+        id: "pri-costs",
+        label: "Reduce operational costs and free up margin",
+        description: "Do more with less — automate the grind so people focus on high-value work",
+        icon: "✂️",
+        tags: ["reduce-costs", "internal-ops", "manual-reporting"],
+        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "impl-customize",
-        label: "Customize existing platforms",
-        description: "Commercial platforms with configuration and integration",
-        icon: "🔧",
-        tags: ["strategic-investment", "buy-saas"],
-        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 },
+        id: "pri-pitches",
+        label: "Win more pitches and grow revenue",
+        description: "Show up with sharper strategy, better data, and more compelling creative",
+        icon: "🏆",
+        tags: ["win-pitches", "business-development", "client-delivery"],
+        weights: { valuePreference: 2, riskTolerance: 1, complexityTolerance: 0 }
       },
       {
-        id: "impl-opensource",
-        label: "Build custom on open-source",
-        description: "Leverage open-source foundations, custom development",
-        icon: "🌳",
-        tags: ["build-custom", "strategic-investment"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
+        id: "pri-speed",
+        label: "Deliver faster and more personalized client work",
+        description: "Compress timelines without compromising quality",
+        icon: "🚀",
+        tags: ["faster-delivery", "client-delivery", "personalization"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "impl-proprietary",
-        label: "Full custom proprietary development",
-        description: "Complete custom build for maximum control and uniqueness",
-        icon: "🏭",
-        tags: ["build-custom", "differentiation"],
-        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 2 },
+        id: "pri-product",
+        label: "Create a productized service we can sell at scale",
+        description: "Turn an internal capability into a revenue-generating product",
+        icon: "💎",
+        tags: ["productized-service", "new-service", "build-proprietary"],
+        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 2 }
       },
-    ],
+      {
+        id: "pri-talent",
+        label: "Improve talent/creator discovery and relationship intelligence",
+        description: "Know who to work with, why, and when — before our competitors do",
+        icon: "⭐",
+        tags: ["talent-intelligence", "talent-sourcing", "creators-influencers"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 1 }
+      },
+      {
+        id: "pri-measurement",
+        label: "Unlock measurement capabilities competitors can't match",
+        description: "Proprietary attribution, predictive analytics, always-on insights",
+        icon: "🔬",
+        tags: ["measurement-edge", "measurement-insights", "cross-platform-measurement"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 1 }
+      }
+    ]
   },
   {
     id: 10,
-    question: "Where do you want AI to create the most impact first?",
-    subtitle: "Sequencing matters—some areas have faster ROI",
+    question: "Where should AI make its biggest impact first?",
+    subtitle: "Starting in the right place builds momentum for everything that follows",
     options: [
       {
-        id: "impact-internal",
-        label: "Internal operations (back office)",
-        description: "Automate back-office processes, reduce costs, improve efficiency",
+        id: "scope-internal",
+        label: "Internal operations — make the back office faster",
+        description: "Timesheets, resourcing, reporting, contracts — the invisible tax on every team",
         icon: "⚙️",
-        tags: ["internal-ops", "cost-reduction"],
-        weights: { valuePreference: 2, riskTolerance: 0, complexityTolerance: 0 },
+        tags: ["internal-ops", "reduce-costs", "finance-operations"],
+        weights: { valuePreference: 2, riskTolerance: -1, complexityTolerance: 0 }
       },
       {
-        id: "impact-customer",
-        label: "Customer-facing experiences",
-        description: "Personalization, support, engagement, customer satisfaction",
-        icon: "😊",
-        tags: ["customer-facing", "revenue-growth"],
-        weights: { valuePreference: 1, riskTolerance: 1, complexityTolerance: 1 },
+        id: "scope-client",
+        label: "Client delivery — improve what we ship to clients",
+        description: "Better creative, sharper insights, faster turnaround on everything",
+        icon: "🎯",
+        tags: ["client-delivery", "faster-delivery", "creative-scale"],
+        weights: { valuePreference: 1, riskTolerance: 0, complexityTolerance: 0 }
       },
       {
-        id: "impact-product",
-        label: "New product/service creation",
-        description: "AI-powered offerings, new business models, market expansion",
-        icon: "🚀",
-        tags: ["product-innovation", "revenue-growth"],
-        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 1 },
+        id: "scope-service",
+        label: "New service offering — build something we can sell",
+        description: "AI-powered products that generate revenue beyond traditional retainers",
+        icon: "💰",
+        tags: ["new-service", "productized-service", "win-pitches"],
+        weights: { valuePreference: 1, riskTolerance: 2, complexityTolerance: 1 }
       },
       {
-        id: "impact-enterprise",
-        label: "Enterprise-wide transformation",
-        description: "Comprehensive AI integration across all operations",
+        id: "scope-agency",
+        label: "Agency-wide transformation — change how THE·TEAM operates",
+        description: "AI embedded in every workflow, every team, every client engagement",
         icon: "🌍",
-        tags: ["enterprise-wide", "differentiation"],
-        weights: { valuePreference: 0, riskTolerance: 1, complexityTolerance: 2 },
-      },
-    ],
-  },
+        tags: ["agency-wide", "timeline-transformational", "build-proprietary"],
+        weights: { valuePreference: 0, riskTolerance: 1, complexityTolerance: 2 }
+      }
+    ]
+  }
 ];

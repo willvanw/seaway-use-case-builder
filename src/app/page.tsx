@@ -52,7 +52,7 @@ export default function Home() {
             {/* Subtitle */}
             <div className="max-w-2xl mx-auto mb-12 animate-fade-up delay-2">
               <p className="text-lg sm:text-xl text-gray-400 leading-relaxed">
-                Discover enterprise AI use cases tailored to your organization. Powered by a 30-solution intelligence library, scored across value, risk, and complexity.
+                Discover AI use cases tailored to THE·TEAM&apos;s business lines. Powered by a 30-solution intelligence library, scored across value, risk, and complexity.
               </p>
             </div>
 
@@ -103,7 +103,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-semibold text-center mb-4">Answer 10 Questions</h3>
                   <p className="text-gray-400 text-center">
-                    Quick strategic questions about your organization's goals, industry, and current technology landscape.
+                    Quick strategic questions about your business line, workflows, pain points, and AI readiness.
                   </p>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-semibold text-center mb-4">Our Engine Matches</h3>
                   <p className="text-gray-400 text-center">
-                    Our intelligence engine analyzes your profile against 30 proven AI solutions, evaluating fit and impact.
+                    Our engine matches your profile against 30 THE·TEAM-specific AI solutions, evaluating fit and impact.
                   </p>
                 </div>
               </div>
@@ -139,7 +139,7 @@ export default function Home() {
                   </div>
                   <h3 className="text-xl font-semibold text-center mb-4">Unlock Recommendations</h3>
                   <p className="text-gray-400 text-center">
-                    Receive 5 tailored recommendations with detailed implementation insights and strategic guidance.
+                    Receive 5 tailored recommendations with implementation details, ownership angles, and build routes.
                   </p>
                 </div>
               </div>

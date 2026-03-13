@@ -32,9 +32,9 @@ export function scoreUseCases(
   };
 
   selectedOptions.forEach((option) => {
-    accumulatedWeights.valuePreference += option.weights.valuePreference;
-    accumulatedWeights.riskTolerance += option.weights.riskTolerance;
-    accumulatedWeights.complexityTolerance += option.weights.complexityTolerance;
+    accumulatedWeights.valuePreference += option.weights.valuePreference ?? 0;
+    accumulatedWeights.riskTolerance += option.weights.riskTolerance ?? 0;
+    accumulatedWeights.complexityTolerance += option.weights.complexityTolerance ?? 0;
   });
 
   // Normalize accumulated weights to -2 to 2 range
@@ -79,76 +79,75 @@ export function scoreUseCases(
       }
     }
 
-    // Check industry fit
-    const industryTags = [
-      'financial-services',
-      'healthcare',
-      'manufacturing',
-      'technology',
-      'retail',
-      'professional-services',
-      'energy',
-      'media-telecom',
+    // Check business line fit
+    const businessLineTags = [
+      'creators-influencers', 'business-development', 'finance-operations',
+      'performance-marketing', 'experiential-marketing', 'creative',
+      'measurement-insights', 'live-event-production', 'people-talent', 'music-talent-rep',
     ];
-    const hasIndustryMatch = useCase.tags.some(
-      (tag) =>
-        industryTags.includes(tag) &&
-        selectedTags.has(tag)
+    const hasBusinessLineMatch = useCase.tags.some(
+      (tag) => businessLineTags.includes(tag) && selectedTags.has(tag)
     );
-    if (hasIndustryMatch) {
-      matchReasons.push('Strong industry alignment');
+    if (hasBusinessLineMatch) {
+      matchReasons.push('Direct fit for your business line');
     }
 
-    // Check maturity fit
-    const maturityTags = ['low-tech-maturity', 'mid-tech-maturity', 'high-tech-maturity'];
-    const useCaseMaturity = useCase.tags.find((tag) => maturityTags.includes(tag));
-    const selectedMaturity = Array.from(selectedTags).find((tag) =>
-      maturityTags.includes(tag)
-    );
-
-    if (useCaseMaturity && selectedMaturity && useCaseMaturity === selectedMaturity) {
-      matchReasons.push('Tailored to your technical maturity level');
-    }
-
-    // Check strategic fit
-    const strategicTags = [
-      'cost-reduction',
-      'revenue-growth',
-      'risk-mitigation',
-      'differentiation',
-      'productivity',
+    // Check deliverable type fit
+    const deliverableTags = [
+      'campaign-strategy', 'talent-sourcing', 'client-reporting', 'content-production',
+      'event-logistics', 'deal-management', 'media-buying', 'brand-partnerships',
     ];
-    const hasStrategicMatch = useCase.tags.some(
-      (tag) =>
-        strategicTags.includes(tag) &&
-        selectedTags.has(tag)
+    const hasDeliverableMatch = useCase.tags.some(
+      (tag) => deliverableTags.includes(tag) && selectedTags.has(tag)
     );
-    if (hasStrategicMatch) {
-      matchReasons.push('Aligns with your strategic objectives');
+    if (hasDeliverableMatch) {
+      matchReasons.push('Targets your core deliverable workflow');
     }
 
-    // Check implementation fit
-    const implementationTags = ['quick-win', 'strategic-investment', 'buy-saas', 'build-custom'];
+    // Check pain point alignment
+    const painTags = [
+      'manual-reporting', 'talent-discovery', 'creative-volume', 'campaign-optimization',
+      'vendor-coordination', 'contract-workflow', 'client-approvals', 'knowledge-silos',
+    ];
+    const hasPainMatch = useCase.tags.some(
+      (tag) => painTags.includes(tag) && selectedTags.has(tag)
+    );
+    if (hasPainMatch) {
+      matchReasons.push('Addresses your biggest bottleneck');
+    }
+
+    // Check strategic priority fit
+    const priorityTags = [
+      'reduce-costs', 'win-pitches', 'faster-delivery',
+      'productized-service', 'talent-intelligence', 'measurement-edge',
+    ];
+    const hasPriorityMatch = useCase.tags.some(
+      (tag) => priorityTags.includes(tag) && selectedTags.has(tag)
+    );
+    if (hasPriorityMatch) {
+      matchReasons.push('Aligns with your strategic priority');
+    }
+
+    // Check build/timeline fit
+    const implTags = [
+      'buy-saas', 'customize-platform', 'build-opensource', 'build-proprietary',
+      'timeline-rapid', 'timeline-pilot', 'timeline-strategic', 'timeline-transformational',
+    ];
     const hasImplFit = useCase.tags.some(
-      (tag) =>
-        implementationTags.includes(tag) &&
-        selectedTags.has(tag)
+      (tag) => implTags.includes(tag) && selectedTags.has(tag)
     );
     if (hasImplFit) {
-      matchReasons.push('Matches your implementation approach');
+      matchReasons.push('Fits your timeline and build approach');
     }
 
     // Check data readiness fit
-    const dataReadinessTags = ['data-rich', 'data-poor'];
+    const dataReadinessTags = ['data-scattered', 'data-centralized', 'data-structured', 'data-proprietary'];
     const useCaseDataNeeds = useCase.tags.find((tag) => dataReadinessTags.includes(tag));
     const selectedDataReadiness = Array.from(selectedTags).find((tag) =>
       dataReadinessTags.includes(tag)
     );
-
-    if (useCaseDataNeeds === 'data-rich' && selectedDataReadiness === 'data-rich') {
-      matchReasons.push('Leverages your strong data assets');
-    } else if (useCaseDataNeeds === 'data-poor' && selectedDataReadiness === 'data-poor') {
-      matchReasons.push('Works well with limited data resources');
+    if (useCaseDataNeeds && selectedDataReadiness && useCaseDataNeeds === selectedDataReadiness) {
+      matchReasons.push('Matched to your data maturity');
     }
 
     // Use the numeric scores directly from the use case (1-5 scale)
@@ -228,11 +227,11 @@ export function scoreUseCases(
  * @returns Score label
  */
 export function getScoreLabel(score: number): string {
-  if (score >= 80) return 'Critical';
-  if (score >= 60) return 'Very High';
-  if (score >= 40) return 'High';
-  if (score >= 20) return 'Medium';
-  return 'Low';
+  if (score >= 5) return 'Very High';
+  if (score >= 4) return 'High';
+  if (score >= 3) return 'Medium';
+  if (score >= 2) return 'Low';
+  return 'Very Low';
 }
 
 /**
@@ -241,10 +240,10 @@ export function getScoreLabel(score: number): string {
  * @returns Tailwind color class
  */
 export function getScoreColor(score: number): string {
-  if (score >= 80) return 'bg-red-500 text-white';
-  if (score >= 60) return 'bg-orange-500 text-white';
-  if (score >= 40) return 'bg-yellow-500 text-white';
-  if (score >= 20) return 'bg-blue-500 text-white';
+  if (score >= 5) return 'bg-red-500 text-white';
+  if (score >= 4) return 'bg-orange-500 text-white';
+  if (score >= 3) return 'bg-yellow-500 text-white';
+  if (score >= 2) return 'bg-blue-500 text-white';
   return 'bg-gray-400 text-white';
 }
 
